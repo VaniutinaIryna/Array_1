@@ -1,0 +1,25 @@
+#ifndef ARRAY_H
+#define ARRAY_H
+
+class Array
+{
+private:
+    int m_size;
+    int m_step;
+    int* m_array;
+    int m_index;
+
+public:
+    Array();
+    Array(int size, int step);
+    ~Array();
+
+    void showElements();
+    void expandArray(int new_size);
+    int getSize() ;
+    int getElemSize() ;
+    void setValue(int value);
+    void setArray(int* arr, int size);
+};
+
+#endif

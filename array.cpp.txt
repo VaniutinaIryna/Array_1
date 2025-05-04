@@ -1,0 +1,95 @@
+#include <iostream>
+#include "array.h"
+
+
+Array::Array() : m_size(0), m_step(1), m_array(nullptr), m_index(0) {}
+
+
+Array::Array(int size, int step)
+{
+    if (size <= 0)
+    {
+        m_size = 0;
+        m_array = nullptr;
+    }
+    else {
+        m_size = size;
+        m_array = new int[m_size];
+        for (int i = 0; i < m_size; ++i) 
+        {
+            m_array[i] = 0;
+        }
+    }
+    m_step = (step > 0) ? step : 1;
+    m_index = 0;
+}
+
+
+Array::~Array() 
+{
+    delete[] m_array;
+    
+}
+
+
+void Array::showElements() 
+{
+    for (int i = 0; i < m_index; ++i) 
+    {
+        std::cout << m_array[i];
+        if (i < m_index - 1) std::cout << " ";
+    }
+    std::cout << std::endl;
+}
+
+
+void Array::expandArray(int new_size) 
+{
+    if (new_size <= m_size) return;
+
+    int* new_array = new int[new_size];
+    for (int i = 0; i < m_index; ++i) 
+    {
+        new_array[i] = m_array[i];
+    }
+
+    delete[] m_array;
+    m_array = new_array;
+    m_size = new_size;
+}
+
+
+int Array::getSize()  
+{
+    return m_size;
+}
+
+
+int Array::getElemSize() 
+{
+    return m_index;
+}
+
+
+void Array::setValue(int value)
+{
+    if (m_index >= m_size) 
+    {
+        expandArray(m_size + m_step);
+    }
+    m_array[m_index] = value;
+    ++m_index;
+}
+
+
+void Array::setArray(int* arr, int size) 
+{
+    while (m_index + size > m_size) {
+        expandArray(m_size + m_step);
+    }
+    for (int i = 0; i < size; ++i)
+    {
+        m_array[m_index] = arr[i];
+        ++m_index;
+    }
+}
